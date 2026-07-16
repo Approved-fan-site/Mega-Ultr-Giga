@@ -199,33 +199,61 @@ header {
 }
 
 /* ==========================================
-   NEWS セクション（複数配置対応）
+   【新設】NEWS ＆ X（Twitter）2カラムレイアウト
    ========================================== */
+.news-area-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; /* PC版：NEWSを少し広め、Xを少し細めに */
+    gap: 2rem;
+    align-items: start;
+}
+
+.news-column, .x-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* スマホ版（画面幅が狭いとき）のレイアウト順序変更 */
+@media (max-width: 768px) {
+    .news-area-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    .x-column {
+        order: 1; /* スマホ版ではXを一番上（最初）に表示 */
+    }
+    .news-column {
+        order: 2; /* スマホ版ではNEWSを二番目に表示 */
+    }
+}
+
+/* 従来のNEWSリスト */
 .news-list {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 .news-box {
     display: flex;
-    gap: 1.8rem;
+    gap: 1.2rem;
     align-items: flex-start;
 }
-/* 2つ目以降のニュースの上にうっすら区切り線を入れる */
+/* 2つ目以降のニュースの上に区切り線 */
 .news-box + .news-box {
     border-top: 1px solid rgba(167, 153, 183, 0.15);
-    padding-top: 2.5rem;
+    padding-top: 2rem;
 }
 .news-image {
-    width: 140px;
-    height: 140px;
+    width: 90px; /* スマホ・PC共通で綺麗に収まるサイズに調整 */
+    height: 90px;
     flex-shrink: 0;
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border: 1px solid var(--glass-border);
-    padding: 6px;
+    padding: 5px;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 .news-image img {
     width: 100%;
@@ -241,36 +269,61 @@ header {
     color: var(--primary);
     font-weight: 600;
     letter-spacing: 0.05rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
 }
 .news-title {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--dark);
-    margin: 0 0 0.6rem;
+    margin: 0 0 0.4rem;
     line-height: 1.4;
 }
 .news-text {
-    font-size: 0.88rem;
-    line-height: 1.65;
+    font-size: 0.8rem;
+    line-height: 1.6;
     margin: 0;
     color: var(--text);
     opacity: 0.9;
 }
 
-@media (max-width: 580px) {
+/* スマホ版でも「画像横並び」を強制する微調整 */
+@media (max-width: 480px) {
     .news-box {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        flex-direction: row; /* スマホでも縦積みにせず横並びを維持 */
+        align-items: flex-start;
+        text-align: left;
         gap: 1rem;
     }
     .news-image {
-        width: 100%;
-        max-width: 180px;
-        height: auto;
-        aspect-ratio: 1 / 1;
+        width: 75px; /* スマホでの横幅調整 */
+        height: 75px;
     }
+    .news-title {
+        font-size: 0.9rem;
+    }
+    .news-text {
+        font-size: 0.78rem;
+    }
+}
+
+/* X（Twitter）埋め込みエリアの装飾 */
+.x-widget-wrapper {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    padding: 6px;
+    max-height: 500px;
+    overflow-y: auto;
+    /* スクロールバーのカスタマイズ（任意） */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+.x-widget-wrapper::-webkit-scrollbar {
+    width: 5px;
+}
+.x-widget-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 10px;
 }
 
 /* ==========================================
@@ -510,40 +563,55 @@ h2 {
 <main class="container">
     
     <section class="section-block fade-in-element delay-2">
-        <h2>
-            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-            NEWS
-        </h2>
-        <div class="news-list">
-            <div class="news-box">
-                <div class="news-image">
-                    <img src="img3.webp" alt="事務所イベント告知画像" width="120" height="120" fetchpriority="high" decoding="async">
-                </div>
-                <div class="news-content">
-                    <span class="news-date">2026.07.14</span>
-                    <h3 class="news-title">なんと20日から事務所ユニットイベントが開催！</h3>
-                    <p class="news-text">
-                        気になるメンバーは、<br>
-                        ？？🦀？？⚔️？？🍭？？🍔<br>
-                        たちとのこと！<br>
-                        詳細は20日以降のお楽しみに…
-                    </p>
+        <div class="news-area-grid">
+            
+            <div class="news-column">
+                <h2>
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    NEWS
+                </h2>
+                <div class="news-list">
+                    <div class="news-box">
+                        <div class="news-image">
+                            <img src="img3.webp" alt="事務所イベント告知画像" width="120" height="120" fetchpriority="high" decoding="async">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-date">2026.07.14</span>
+                            <h3 class="news-title">なんと20日から事務所ユニットイベントが開催！</h3>
+                            <p class="news-text">
+                                気になるメンバーは、<br>
+                                ？？🦀？？⚔️？？🍭？？🍔<br>
+                                たちとのこと！<br>
+                                詳細は20日以降のお楽しみに…
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="news-box">
+                        <div class="news-image">
+                            <img src="img6.webp" alt="画像はありません。" width="120" height="120" loading="lazy" decoding="async">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-date">2026.07.16</span>
+                            <h3 class="news-title">非公式ファンサイトがアップデートされました！</h3>
+                            <p class="news-text">
+                                まだNEWSはありません。
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="news-box">
-                <div class="news-image">
-                    <img src="img6.webp" alt="画像はありません。" width="120" height="120" loading="lazy" decoding="async">
-                </div>
-                <div class="news-content">
-                    <span class="news-date">2026.07.16</span>
-                    <h3 class="news-title">非公式ファンサイトがアップデートされました！</h3>
-                    <p class="news-text">
-                        まだNEWSはありません。<br>
-                        
-                    </p>
+            <div class="x-column">
+                <h2>
+                    <svg class="x-logo" viewBox="0 0 24 24" style="width:1.15rem; height:1.15rem; vertical-align:text-bottom; margin-right:4px;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                    LATEST X
+                </h2>
+                <div class="x-widget-wrapper">
+                    <a class="twitter-timeline" data-height="500" data-theme="light" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/mega_urtr?ref_src=twsrc%5Etfw">Tweets by mega_urtr</a>
                 </div>
             </div>
+            
         </div>
     </section>
     
@@ -640,6 +708,8 @@ h2 {
     <p class="copyright-main">&copy; 2026 Koqi</p>
     <p class="copyright-sub">Images &amp; Characters &copy; 321.inc</p>
 </footer>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </body>
 </html>
