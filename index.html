@@ -199,7 +199,7 @@ header {
 }
 
 /* ==========================================
-   【新設】NEWS ＆ X（Twitter）2カラムレイアウト
+   NEWS ＆ X（Twitter）2カラムレイアウト
    ========================================== */
 .news-area-grid {
     display: grid;
@@ -238,7 +238,7 @@ header {
     gap: 1.2rem;
     align-items: flex-start;
 }
-/* 2つ目以降のニュースの上に区切り線 */
+/* 2つ目以降 of ニュースの上に区切り線 */
 .news-box + .news-box {
     border-top: 1px solid rgba(167, 153, 183, 0.15);
     padding-top: 2rem;
@@ -314,7 +314,7 @@ header {
     padding: 6px;
     max-height: 500px;
     overflow-y: auto;
-    /* スクロールバーのカスタマイズ（任意） */
+    /* スクロールバーのカスタマイズ */
     scrollbar-width: thin;
     scrollbar-color: var(--primary) transparent;
 }
@@ -324,6 +324,12 @@ header {
 .x-widget-wrapper::-webkit-scrollbar-thumb {
     background-color: var(--primary);
     border-radius: 10px;
+}
+
+/* 個別ツイートがはみ出さないための調整 */
+.x-widget-wrapper .twitter-tweet {
+    margin: 0 auto !important;
+    max-width: 100% !important;
 }
 
 /* ==========================================
@@ -608,7 +614,11 @@ h2 {
                     LATEST X
                 </h2>
                 <div class="x-widget-wrapper">
-                    <a class="twitter-timeline" data-height="500" data-theme="light" data-chrome="noheader nofooter noborders transparent" href="https://twitter.com/mega_urtr?ref_src=twsrc%5Etfw">Tweets by mega_urtr</a>
+                    <blockquote class="twitter-tweet" data-media-max-width="560" data-theme="light">
+                        <p lang="ja" dir="ltr">🍔【ガチイベスケジュール】🍔<br><br>＿＿＿◣＿＿＿＿＿◢＿＿＿⁰<br><br>💜7月20日～7月26日💜<br><br>事務所ユニットイベント参戦❣<br><br>１位入賞＆100万ポイント🔥達成目指してます❣<br><br>池袋の現地でみんなにあいたい❣絶対一位とれるように頑張るから見てて❣<br><br>🍭🍔⚔🦀Tetria ~テトリア~<br>＿＿＿＿＿＿＿＿＿＿＿＿𓂃 <a href="https://t.co/mGNuKJrh1s">pic.twitter.com/mGNuKJrh1s</a></p>
+                        &mdash; メガ・ウルトラギガ👊💜ユニイベｹﾞﾁ🔥 (@mega_urtr) 
+                        <a href="https://x.com/mega_urtr/status/2077606078892941489?ref_src=twsrc%5Etfw">July 16, 2026</a>
+                    </blockquote>
                 </div>
             </div>
             
