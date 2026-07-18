@@ -68,33 +68,31 @@ body {
 }
 
 /* ヘッダーエリア設定 */
-header {
-    text-align: center;
-    padding: 5rem 1.5rem 4rem;
-    position: relative; /* 子要素のabsolute配置基準 */
-    overflow: hidden;   /* はみ出し防止 */
+header{
+    position:relative;
+    overflow:hidden;
 }
 
-/* スライドショー背景コンテナ */
-.header-slideshow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* 文字の後ろに配置 */
+.header-slideshow{
+    position:absolute;
+    inset:0;
+    z-index:0;
 }
 
-.slide-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    animation: fadeSlideshow 15s infinite; /* 3枚で15秒サイクル */
+.slide-bg{
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    animation:fadeSlideshow 15s infinite;
+}
+
+.site-badge,
+.main-visual,
+.sub-name{
+    position:relative;
+    z-index:1;
 }
 
 /* 各画像の表示タイミングをずらす */
